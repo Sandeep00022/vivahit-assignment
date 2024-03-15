@@ -9,9 +9,16 @@ export const uploadFile = async (req, res, next) => {
       return next(errorHandler(400, "please select any one of the options"));
     }
 
-    const uploadedFile = await userFiles.findOne({ name });
+    const uploadedFile = await userFiles.find({ createdBy: req.user.id });
+
     if (uploadedFile) {
-      return next(errorHandler(409, "the requested file is already uploaded"));
+        for (const file of uploadedFile) {
+          if (file.name === name) {
+            return next(
+              errorHandler(409, "the requested file is already uploaded")
+            );
+          }
+        }
     }
 
     const newFile = new userFiles({

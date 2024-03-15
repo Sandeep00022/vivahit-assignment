@@ -5,9 +5,9 @@ import { useSelector } from "react-redux";
 const ShowSizes = () => {
   const { files } = useSelector((state) => state.file);
 
-  let totalSize;
-  let totalImageSize;
-  let totalVideoSize;
+  let totalSize = 0;
+  let totalImageSize = 0;
+  let totalVideoSize = 0;
 
   if (files.length > 0) {
     totalSize = files.reduce((totalSize, file) => totalSize + file.size, 0);
