@@ -37,7 +37,7 @@ const OAuth = () => {
       if (res.ok) {
         dispatch(signInSuccess(data));
 
-        navigate("/dashboard?tab=dash");
+        navigate("/");
         setLoading(false);
       }
       setLoading(false);
