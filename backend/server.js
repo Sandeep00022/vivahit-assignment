@@ -3,18 +3,28 @@ import connection from "./config/config.js";
 import userRouter from "./routes/user.routes.js";
 import fileRouter from "./routes/userFiles.routes.js";
 import dotnev from "dotenv";
+import path from "path";
 import cookieParser from "cookie-parser";
 
 dotnev.config();
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+
+const __dirname = path.resolve();
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
 app.use("/api/user", userRouter);
 app.use("/api/file", fileRouter);
+
+app.use(express.static(path.join(__dirname, "/frontend/dist")));
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+  });
+
 const port = process.env.PORT || 8000;
 
 app.listen(port, () => {
