@@ -6,12 +6,12 @@ export const uploadFile = async (req, res, next) => {
     const { name, size, type, fileUrl } = req.body;
     console.log(name, size, type, fileUrl);
     if (!name || !size || !type || !fileUrl) {
-      return next(errorHandler(400, "please provide all the required fields"));
+      return next(errorHandler(400, "please select any one of the options"));
     }
 
     const uploadedFile = await userFiles.findOne({ name });
     if (uploadedFile) {
-      return next(errorHandler(409, "the reuested file is already uploaded"));
+      return next(errorHandler(409, "the requested file is already uploaded"));
     }
 
     const newFile = new userFiles({

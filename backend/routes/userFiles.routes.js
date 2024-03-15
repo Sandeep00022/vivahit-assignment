@@ -5,6 +5,6 @@ import { verifyToken } from "../utils/verifyUser.js";
 const router = express.Router();
 
 router.post("/upload",verifyToken, uploadFile);
-router.get("/files", getUserFiles)
+router.get("/Allfiles",verifyToken, getUserFiles)
 
 export default router;

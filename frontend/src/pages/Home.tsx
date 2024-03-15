@@ -6,7 +6,7 @@ import {
 } from "firebase/storage";
 import React, { useEffect, useRef, useState } from "react";
 import { app } from "../firebase";
-import { Alert, Button } from "flowbite-react";
+import { Alert, Button, Spinner } from "flowbite-react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fileUploadFailure,
@@ -14,6 +14,7 @@ import {
   fileUploadSuccess,
 } from "../redux/file/fileSlice";
 import { CircularProgressbar } from "react-circular-progressbar";
+import ShowSizes from "../components/ShowSizes";
 
 const Home = () => {
   const [imageFile, setImageFile] = useState(null);
@@ -26,7 +27,7 @@ const Home = () => {
   const [videoUploadProgress, setVideoUplaodProgress] = useState(null);
   const [videoUploadError, setVideoUploadError] = useState(null);
   const [videoUploading, setVideoUploading] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const [UploadedFileSuccess, setUploadedFileSuccess] = useState(null);
   const [UploadedFileError, setUploadedFileError] = useState(null);
 
@@ -165,6 +166,7 @@ const Home = () => {
     }
     console.log(payload);
     try {
+      setLoading(true);
       dispatch(fileUploadStart());
       const res = await fetch(`/api/file/upload`, {
         method: "POST",
@@ -178,16 +180,20 @@ const Home = () => {
         dispatch(fileUploadFailure(data.message));
         setUploadedFileError(data.message);
       } else {
-        dispatch(fileUploadSuccess());
+        console.log(data.data);
+        dispatch(fileUploadSuccess(data.data));
         setUploadedFileSuccess("Uploaded file successfully");
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="flex h-screen  justify-center  items-center">
+    <div className="flex flex-col h-screen  justify-center  items-center">
+      <ShowSizes />
       <div className="flex flex-col  justify-center items-center">
         <div className="flex mb-6 gap-7 justify-center w-full items-center">
           <div>
@@ -222,7 +228,9 @@ const Home = () => {
                         imageFileUploadProgress / 100
                       } )`,
                     },
-                    textColor:'#f88',
+                    text: {
+                      fill: "white",
+                    },
                   }}
                 />
               )}
@@ -265,7 +273,7 @@ const Home = () => {
                       } )`,
                     },
                     text: {
-                      fill: "white", // Set text color to white
+                      fill: "white",
                     },
                   }}
                   className="text-white"
@@ -277,16 +285,18 @@ const Home = () => {
             </Button>
           </div>
         </div>
-        <Button className="w-full" gradientDuoTone={"purpleToPink"} onClick={handleUploadFile}>
-          Add To Your Gallery
+        <Button
+          className="w-full"
+          gradientDuoTone={"purpleToPink"}
+          onClick={handleUploadFile}
+        >
+          {loading ? "Adding to Gallery..." : "Add To Your Gallery"}
         </Button>
-        {
-            UploadedFileError && (
-                <Alert color={"failure"} className="mt-6">
-                    {UploadedFileError}
-                </Alert>
-            )
-        }
+        {UploadedFileError && (
+          <Alert color={"failure"} className="mt-6">
+            {UploadedFileError}
+          </Alert>
+        )}
       </div>
     </div>
   );
