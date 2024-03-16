@@ -150,8 +150,6 @@ const Home = () => {
     }
   }, [videoFile]);
 
-  console.log(imageFileUrl);
-
   const handleUploadFile = async () => {
     setUploadedFileError(null);
     setUploadedFileSuccess(null);
@@ -174,13 +172,11 @@ const Home = () => {
       };
     }
 
-    console.log(payload);
-
     if (imageUploading) {
       setUploadedFileError("Please wait for file to upload");
       return;
     }
-    console.log(payload);
+
     try {
       setLoading(true);
       dispatch(fileUploadStart());
@@ -196,7 +192,6 @@ const Home = () => {
         dispatch(fileUploadFailure(data.message));
         setUploadedFileError(data.message);
       } else {
-        console.log(data.data);
         dispatch(fileUploadSuccess(data.data));
         setUploadedFileSuccess("Uploaded file successfully");
       }

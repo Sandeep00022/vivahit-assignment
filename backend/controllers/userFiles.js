@@ -4,7 +4,7 @@ import { errorHandler } from "../utils/error.js";
 export const uploadFile = async (req, res, next) => {
   try {
     const { name, size, type, fileUrl } = req.body;
-    console.log(name, size, type, fileUrl);
+   
     if (!name || !size || !type || !fileUrl) {
       return next(errorHandler(400, "please select any one of the options"));
     }

@@ -10,7 +10,6 @@ import { Spinner } from "flowbite-react";
 import animation from "../assets/animation-2.gif";
 import { rootReducer } from "../redux/store";
 
-
 export interface File {
   _id: string;
   name: string;
@@ -22,10 +21,10 @@ export interface File {
 type RootState = ReturnType<typeof rootReducer>;
 
 const Gallery = () => {
-  const { files } = useSelector((state:RootState) => state.file);
+  const { files } = useSelector((state: RootState) => state.file);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  console.log("fuiels", files);
+
   const getFiles = async () => {
     try {
       setLoading(true);
@@ -35,7 +34,6 @@ const Gallery = () => {
       if (!res.ok) {
         dispatch(getFilesFailure(data.error));
       } else {
-        console.log(data);
         dispatch(getFilesSuccess(data.data));
       }
     } catch (error) {

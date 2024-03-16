@@ -3,13 +3,13 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { signoutSuccess } from "../redux/user/userSlice";
-import gallery from "../assets/gallery.png"
+import gallery from "../assets/gallery.png";
 import { rootReducer } from "../redux/store";
 
 type RootState = ReturnType<typeof rootReducer>;
 
 const Header = () => {
-  const { currentUser } = useSelector((state:RootState) => state.user);
+  const { currentUser } = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   const handleSignout = async () => {
     try {
@@ -48,7 +48,7 @@ const Header = () => {
             LogOut
           </Button>
         ) : (
-            <img className="h-9" src={gallery} alt="" />
+          <img className="h-9" src={gallery} alt="" />
         )}
       </div>
     </div>

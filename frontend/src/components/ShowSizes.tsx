@@ -5,7 +5,7 @@ import { rootReducer } from "../redux/store";
 
 type RootState = ReturnType<typeof rootReducer>;
 const ShowSizes = () => {
-  const { files } = useSelector((state:RootState) => state.file);
+  const { files } = useSelector((state: RootState) => state.file);
 
   let totalSize = 0;
   let totalImageSize = 0;
@@ -22,7 +22,7 @@ const ShowSizes = () => {
       .reduce((totalSize, file) => totalSize + file.size, 0);
   }
 
-  function formatFileSize(bytes:number) {
+  function formatFileSize(bytes: number) {
     if (bytes < 1024) {
       return bytes + " bytes";
     } else if (bytes < 1024 * 1024) {
@@ -33,8 +33,6 @@ const ShowSizes = () => {
       return (bytes / (1024 * 1024 * 1024)).toFixed(2) + " GB";
     }
   }
-
-  console.log("totalfilter", totalVideoSize);
 
   return (
     <div>
