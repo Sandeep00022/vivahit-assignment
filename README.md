@@ -46,17 +46,20 @@ To run this app locally, follow these steps:
 ## Screenshots
   - user can simply click on signup with google and login or signup her or himself.
     
-![image](https://github.com/Sandeep00022/vivahit-assignment/assets/97525395/99fbb3e0-33f4-4a87-9a4c-0b99af98caf9)
+![image](https://github.com/Sandeep00022/vivahit-assignment/assets/97525395/5505a988-508a-4036-ad67-e201a1615e08)
+
 
 
   - user can see all the importans stats alike total-size totalimageSize totalVideSize and can easily upload images and viodes
     
-![image](https://github.com/Sandeep00022/vivahit-assignment/assets/97525395/90c41f86-4f19-45d8-bdaa-4353ef57ca29)
+![image](https://github.com/Sandeep00022/vivahit-assignment/assets/97525395/4891559e-fc93-4f83-aeb5-92311ae8afd5)
+
 
 
 - user can see all the gallery images in gallery section.
   
-![image](https://github.com/Sandeep00022/vivahit-assignment/assets/97525395/311c6682-d68a-4a00-9faf-c301299c3e35)
+![image](https://github.com/Sandeep00022/vivahit-assignment/assets/97525395/68ef54f7-2f76-4d08-8111-923f384c7463)
+
 
 
 
