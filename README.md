@@ -2,6 +2,8 @@
 
 Welcome to our Photo and Video Upload App! This application allows users to seamlessly upload and view both photos and videos.
 
+# Note:- The website is deployed on Render and will take atleast 1 min to start
+
 ## Video Explanation Drive link
 https://drive.google.com/file/d/1K55SbxNudVZr2M4jv4EwsovOAYpo61qY/view?usp=sharing
 
