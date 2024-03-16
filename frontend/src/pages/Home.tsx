@@ -40,6 +40,8 @@ const Home = () => {
     null
   );
 
+  console.log(videoUploading);
+  console.log(UploadedFileSuccess);
   const dispatch = useDispatch();
 
   const filePickerRef = useRef<HTMLInputElement | null>(null);
