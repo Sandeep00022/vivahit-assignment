@@ -61,6 +61,13 @@ To run this app locally, follow these steps:
 ![image](https://github.com/Sandeep00022/vivahit-assignment/assets/97525395/68ef54f7-2f76-4d08-8111-923f384c7463)
 
 
+## Mobile Responsive
+
+![image](https://github.com/Sandeep00022/vivahit-assignment/assets/97525395/8add5c6d-1aa2-44b3-9385-de6da623836d)
+![image](https://github.com/Sandeep00022/vivahit-assignment/assets/97525395/6a3383e7-400d-44ac-95f0-0abb368a1f1e)
+![image](https://github.com/Sandeep00022/vivahit-assignment/assets/97525395/1e46fe6f-8b27-4421-b49c-365a06f2e7f6)
+
+
 
 
 ## Running the App
