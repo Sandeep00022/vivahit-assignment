@@ -15,6 +15,8 @@ import {
 } from "../redux/file/fileSlice";
 import { CircularProgressbar } from "react-circular-progressbar";
 import ShowSizes from "../components/ShowSizes";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 type MyEnum = number | null;
 
@@ -39,6 +41,8 @@ const Home = () => {
   const [UploadedFileError, setUploadedFileError] = useState<string | null>(
     null
   );
+
+  const notify = () => toast("Your file has been uploaded");
 
   console.log(videoUploading);
   console.log(UploadedFileSuccess);
@@ -196,6 +200,7 @@ const Home = () => {
       } else {
         dispatch(fileUploadSuccess(data.data));
         setUploadedFileSuccess("Uploaded file successfully");
+        notify();
       }
     } catch (error) {
       console.log(error);
@@ -320,6 +325,7 @@ const Home = () => {
             {imageFileUploadError}
           </Alert>
         )}
+        <ToastContainer />
       </div>
     </div>
   );
