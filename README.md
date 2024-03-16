@@ -2,6 +2,10 @@
 
 Welcome to our Photo and Video Upload App! This application allows users to seamlessly upload and view both photos and videos.
 
+## Video Explanation Drive link
+https://drive.google.com/file/d/1K55SbxNudVZr2M4jv4EwsovOAYpo61qY/view?usp=sharing
+
+
 ## Getting Started Locally
 
 To run this app locally, follow these steps:
