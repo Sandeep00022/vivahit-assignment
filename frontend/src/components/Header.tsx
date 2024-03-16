@@ -29,8 +29,8 @@ const Header = () => {
 
   return (
     <div
-      className="flex sticky top-0 w-full
-     bg-purple-500 font-bold hover:cursor-pointer
+      className="flex fixed  w-full
+        font-bold hover:cursor-pointer
      text-white p-3 gap-7 shadow-2xl justify-around items-center border-b-2 "
     >
       <div className="flex gap-5 justify-center items-center">
@@ -42,7 +42,7 @@ const Header = () => {
         </Link>
       </div>
       <div className="flex items-center gap-3">
-        <h3>Hi {currentUser?.username}</h3>
+        <h3 className="text-xs sm:text-sm">Hi {currentUser?.username}</h3>
         {currentUser ? (
           <Button onClick={handleSignout} gradientDuoTone={"pinkToOrange"}>
             LogOut

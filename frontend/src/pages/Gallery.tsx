@@ -48,7 +48,7 @@ const Gallery = () => {
   }, []);
 
   return (
-    <div className="flex flex-col  justify-center items-center h-screen">
+    <div className="flex flex-col  justify-center items-center ">
       {files?.length == 0 && (
         <div className="flex flex-col items-center p-3">
           <img src={animation} alt="" />
@@ -60,7 +60,7 @@ const Gallery = () => {
       {loading ? (
         <Spinner />
       ) : (
-        <div className="flex justify-center mt-[600px] gap-4 flex-wrap">
+        <div className="flex justify-center mt-[100px]  gap-4 flex-wrap">
           {files &&
             files.map((file: File) => (
               <GalleryCard key={file._id} file={file} />
