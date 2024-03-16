@@ -41,7 +41,8 @@ const Header = () => {
           <div>Gallery</div>
         </Link>
       </div>
-      <div>
+      <div className="flex items-center gap-3">
+        <h3>Hi {currentUser?.username}</h3>
         {currentUser ? (
           <Button onClick={handleSignout} gradientDuoTone={"pinkToOrange"}>
             LogOut

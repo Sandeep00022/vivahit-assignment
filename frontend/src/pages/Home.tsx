@@ -313,6 +313,16 @@ const Home = () => {
             {UploadedFileError}
           </Alert>
         )}
+        {videoUploadError && (
+          <Alert color={"failure"} className="mt-6">
+            {videoUploadError}
+          </Alert>
+        )}
+        {imageFileUploadError && (
+          <Alert color={"failure"} className="mt-6">
+            {imageFileUploadError}
+          </Alert>
+        )}
       </div>
     </div>
   );
