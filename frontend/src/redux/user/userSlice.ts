@@ -1,6 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
+interface User {
+  _id: string;
+  username: string;
+  email: string;
+  profilePicture: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface UserState {
+  currentUser: User | null;
+  error: string | null;
+  loading: boolean;
+}
+
+const initialState: UserState = {
   currentUser: null,
   error: null,
   loading: false,
@@ -14,12 +29,12 @@ const userSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    signInSuccess: (state, action) => {
+    signInSuccess: (state, action: PayloadAction<User>) => {
       state.currentUser = action.payload;
       state.loading = false;
       state.error = null;
     },
-    signInFailure: (state, action) => {
+    signInFailure: (state, action: PayloadAction<string>) => {
       state.loading = false;
       state.error = action.payload;
     },

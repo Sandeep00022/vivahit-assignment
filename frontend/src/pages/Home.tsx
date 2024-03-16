@@ -1,4 +1,5 @@
 import {
+  StorageReference,
   getDownloadURL,
   getStorage,
   ref,
@@ -6,8 +7,8 @@ import {
 } from "firebase/storage";
 import React, { useEffect, useRef, useState } from "react";
 import { app } from "../firebase";
-import { Alert, Button, Spinner } from "flowbite-react";
-import { useDispatch, useSelector } from "react-redux";
+import { Alert, Button } from "flowbite-react";
+import { useDispatch } from "react-redux";
 import {
   fileUploadFailure,
   fileUploadStart,
@@ -17,29 +18,27 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import ShowSizes from "../components/ShowSizes";
 
 const Home = () => {
-  const [imageFile, setImageFile] = useState(null);
-  const [imageFileUrl, setImageFileUrl] = useState(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageFileUrl, setImageFileUrl] = useState<string | null>(null);
   const [imageFileUploadProgress, setImageFileUplaodProgress] = useState(null);
-  const [imageFileUploadError, setImageFileUploadError] = useState(null);
+  const [imageFileUploadError, setImageFileUploadError] = useState<string | null>(null);
   const [imageUploading, setImageUploading] = useState(false);
-  const [videoFile, setVideoFile] = useState(null);
-  const [videoFileUrl, setVideoFileUrl] = useState(null);
+  const [videoFile, setVideoFile] = useState<File | null>(null);
+  const [videoFileUrl, setVideoFileUrl] = useState<string | null>(null);
   const [videoUploadProgress, setVideoUplaodProgress] = useState(null);
-  const [videoUploadError, setVideoUploadError] = useState(null);
+  const [videoUploadError, setVideoUploadError] = useState<string | null>(null);
   const [videoUploading, setVideoUploading] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [UploadedFileSuccess, setUploadedFileSuccess] = useState(null);
-  const [UploadedFileError, setUploadedFileError] = useState(null);
+  const [UploadedFileSuccess, setUploadedFileSuccess] = useState<string | null>(null);
+  const [UploadedFileError, setUploadedFileError] = useState<string | null>(null);
 
   const dispatch = useDispatch();
 
-  const filePickerRef = useRef();
-  const imageFilePickerRef = useRef();
-  //   console.log(filePickerRef.current)
-  const { currentUser } = useSelector((state) => state.user);
+  const filePickerRef = useRef<HTMLInputElement | null>(null);
+  const imageFilePickerRef = useRef<HTMLInputElement | null>(null);
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
 
     if (file) {
       setImageFile(file);
@@ -47,8 +46,8 @@ const Home = () => {
     }
   };
 
-  const handleVideoChange = (e) => {
-    const file = e.target.files[0];
+  const handleVideoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
 
     if (file) {
       setVideoFile(file);
@@ -60,9 +59,12 @@ const Home = () => {
     setImageUploading(true);
     setImageFileUploadError(null);
     const storage = getStorage(app);
-    const fileName = new Date().getTime() + imageFile.name;
-    const storageRef = ref(storage, fileName);
-    const uploadTask = uploadBytesResumable(storageRef, imageFile);
+    const fileName = imageFile?.name
+      ? new Date().getTime() + imageFile.name
+      : null;
+    let storageRef: StorageReference | null;
+    storageRef = fileName ? ref(storage, fileName) : null;
+    const uploadTask = uploadBytesResumable(storageRef, imageFile)
 
     uploadTask.on(
       "state_changed",
@@ -73,11 +75,12 @@ const Home = () => {
       },
       (error) => {
         setImageFileUploadError(
-          "Could not upload image (File must be less than 2MB)"
+          "Could not upload image (File must be less than 20MB)"
         );
         setImageFileUplaodProgress(null);
         setImageFile(null);
         setImageFileUrl(null);
+        console.log(error)
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
@@ -108,6 +111,7 @@ const Home = () => {
         setVideoUploadError(
           "Could not upload video (File must be less than 20MB)"
         );
+        console.log(error)
         setVideoUploadError(null);
         setVideoFile(null);
         setVideoFileUrl(null);
@@ -208,7 +212,7 @@ const Home = () => {
               gradientDuoTone={"pinkToOrange"}
               className="relative shadow-xl w-32 h-32 self-center flex justify-center items-center border border-4  cursor-pointer 
            overflow-hidden rounded-full"
-              onClick={() => imageFilePickerRef.current.click()}
+              onClick={() => imageFilePickerRef.current?.click()}
             >
               {imageFileUploadProgress && (
                 <CircularProgressbar
@@ -251,7 +255,7 @@ const Home = () => {
               gradientDuoTone={"purpleToBlue"}
               className="relative shadow-xl w-32 h-32 self-center flex justify-center items-center border border-4  cursor-pointer 
               overflow-hidden rounded-full"
-              onClick={() => filePickerRef.current.click()}
+              onClick={() => filePickerRef.current?.click()}
             >
               {videoUploadProgress && (
                 <CircularProgressbar

@@ -5,9 +5,12 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import persistStore from "redux-persist/es/persistStore";
 
-const rootReducer = combineReducers({
+// Define RootState to represent the combined state of your reducers
+export type RootState = ReturnType<typeof rootReducer>;
+
+export const rootReducer = combineReducers({
   user: userReducer,
-  file:fileReducer,
+  file: fileReducer,
 });
 
 const persistConfig = {

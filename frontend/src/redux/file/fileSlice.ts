@@ -1,6 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
+export interface File {
+  _id: string;
+  name: string;
+  type: string;
+  size: number;
+  fileUrl: string;
+}
+
+export interface FileState {
+  files: File[] | null;
+  error: string | null;
+  loading: boolean;
+}
+
+const initialState: FileState = {
   files: null,
   error: null,
   loading: false,
@@ -14,12 +28,12 @@ const fileSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    fileUploadSuccess: (state, action) => {
-      state.files = [action.payload, ...state.files];
+    fileUploadSuccess: (state, action: PayloadAction<File>) => {
+      state.files = [action.payload, ...(state.files || [])];
       state.loading = false;
       state.error = null;
     },
-    fileUploadFailure: (state, action) => {
+    fileUploadFailure: (state, action: PayloadAction<string>) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -27,12 +41,12 @@ const fileSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    getFilesSuccess: (state, action) => {
+    getFilesSuccess: (state, action: PayloadAction<File[]>) => {
       state.files = action.payload;
-      state.loading = true;
+      state.loading = false;
       state.error = null;
     },
-    getFilesFailure: (state, action) => {
+    getFilesFailure: (state, action: PayloadAction<string>) => {
       state.loading = false;
       state.error = action.payload;
     },
