@@ -10,6 +10,11 @@
     "start": "node backend/server.js",
     "build": "npm install --prefix frontend && npm run build --prefix frontend"
   },
+  "imports": {
+    "#root/*": {
+        "default": "./src/*"
+    }
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
