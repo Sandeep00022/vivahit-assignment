@@ -3,7 +3,7 @@ import { Button, Spinner } from "flowbite-react";
 import { FaGoogle } from "react-icons/fa";
 import { GoogleAuthProvider, signInWithPopup, getAuth } from "firebase/auth";
 import { app } from "../firebase";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signInSuccess } from "../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
 const OAuth = () => {
@@ -11,8 +11,6 @@ const OAuth = () => {
   const dispatch = useDispatch();
   const auth = getAuth(app);
   const navigate = useNavigate();
-
-  const currentUser = useSelector((state) => state.user);
 
   const handleGoogleClick = async () => {
     setLoading(true);

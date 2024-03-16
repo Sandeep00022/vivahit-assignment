@@ -1,21 +1,37 @@
-import React from "react";
+import React from "react"; // Import React if not already imported
 
-const GalleryCard = ({ file }) => {
-  const fileType = file.type.split("/")[0].toString();
+interface File {
+  _id: string;
+  name: string;
+  type: string;
+  size: number;
+  fileUrl: string;
+}
+
+interface GalleryCardProps {
+  file: File; // Define prop type for file
+}
+
+const GalleryCard: React.FC<GalleryCardProps> = ({ file }) => {
+  const fileType = file.type.split("/")[0];
   return (
-    <div className=" shadow-2xl rounded-xl p-3">
+    <div className="shadow-2xl rounded-xl p-3">
       {fileType === "image" ? (
-        <img  width={"300px"} height={"300px"} src={file.fileUrl} alt="image" />
+        <img width={300} height={300} src={file.fileUrl} alt="image" />
       ) : (
         <VideoPlayer videoUrl={file.fileUrl} />
       )}
-      
     </div>
   );
 };
 
-function VideoPlayer({ videoUrl }) {
-  console.log(videoUrl);
+export default GalleryCard;
+
+interface VideoPlayerProps {
+  videoUrl: string; // Define prop type for videoUrl
+}
+
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl }) => {
   return (
     <div className="video-player w-[300px] h-[300px]">
       <video controls>
@@ -24,6 +40,4 @@ function VideoPlayer({ videoUrl }) {
       </video>
     </div>
   );
-}
-
-export default GalleryCard;
+};

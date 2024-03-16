@@ -1,5 +1,4 @@
 import {
-  StorageReference,
   getDownloadURL,
   getStorage,
   ref,
@@ -17,20 +16,29 @@ import {
 import { CircularProgressbar } from "react-circular-progressbar";
 import ShowSizes from "../components/ShowSizes";
 
+type MyEnum = number | null;
+
 const Home = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageFileUrl, setImageFileUrl] = useState<string | null>(null);
-  const [imageFileUploadProgress, setImageFileUplaodProgress] = useState(null);
-  const [imageFileUploadError, setImageFileUploadError] = useState<string | null>(null);
+  const [imageFileUploadProgress, setImageFileUplaodProgress] =
+    useState<MyEnum>(null);
+  const [imageFileUploadError, setImageFileUploadError] = useState<
+    string | null
+  >(null);
   const [imageUploading, setImageUploading] = useState(false);
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [videoFileUrl, setVideoFileUrl] = useState<string | null>(null);
-  const [videoUploadProgress, setVideoUplaodProgress] = useState(null);
+  const [videoUploadProgress, setVideoUplaodProgress] = useState<MyEnum>(null);
   const [videoUploadError, setVideoUploadError] = useState<string | null>(null);
   const [videoUploading, setVideoUploading] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [UploadedFileSuccess, setUploadedFileSuccess] = useState<string | null>(null);
-  const [UploadedFileError, setUploadedFileError] = useState<string | null>(null);
+  const [UploadedFileSuccess, setUploadedFileSuccess] = useState<string | null>(
+    null
+  );
+  const [UploadedFileError, setUploadedFileError] = useState<string | null>(
+    null
+  );
 
   const dispatch = useDispatch();
 
@@ -59,71 +67,75 @@ const Home = () => {
     setImageUploading(true);
     setImageFileUploadError(null);
     const storage = getStorage(app);
-    const fileName = imageFile?.name
-      ? new Date().getTime() + imageFile.name
-      : null;
-    let storageRef: StorageReference | null;
-    storageRef = fileName ? ref(storage, fileName) : null;
-    const uploadTask = uploadBytesResumable(storageRef, imageFile)
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setImageFileUplaodProgress(progress.toFixed(0));
-      },
-      (error) => {
-        setImageFileUploadError(
-          "Could not upload image (File must be less than 20MB)"
-        );
-        setImageFileUplaodProgress(null);
-        setImageFile(null);
-        setImageFileUrl(null);
-        console.log(error)
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setImageFileUrl(downloadURL);
+    if (imageFile) {
+      const fileName = new Date().getTime() + imageFile.name;
+      const storageRef = ref(storage, fileName);
+      const uploadTask = uploadBytesResumable(storageRef, imageFile);
 
-          setImageUploading(false);
-        });
-      }
-    );
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setImageFileUplaodProgress(
+            progress !== null ? Number(progress.toFixed(0)) : null
+          );
+        },
+        (error) => {
+          setImageFileUploadError(
+            "Could not upload image (File must be less than 20MB)"
+          );
+          setImageFileUplaodProgress(null);
+          setImageFile(null);
+          setImageFileUrl(null);
+          console.log(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setImageFileUrl(downloadURL);
+
+            setImageUploading(false);
+          });
+        }
+      );
+    }
   };
 
   const uploadVideo = async () => {
     setVideoUploading(true);
     setVideoUploadError(null);
     const storage = getStorage(app);
-    const fileName = new Date().getTime() + videoFile.name;
-    const storageRef = ref(storage, fileName);
-    const uploadTask = uploadBytesResumable(storageRef, videoFile);
+    if (videoFile) {
+      const fileName = new Date().getTime() + videoFile.name;
+      const storageRef = ref(storage, fileName);
+      const uploadTask = uploadBytesResumable(storageRef, videoFile);
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setVideoUplaodProgress(progress.toFixed(0));
-      },
-      (error) => {
-        setVideoUploadError(
-          "Could not upload video (File must be less than 20MB)"
-        );
-        console.log(error)
-        setVideoUploadError(null);
-        setVideoFile(null);
-        setVideoFileUrl(null);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setVideoFileUrl(downloadURL);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setVideoUplaodProgress(Number(progress.toFixed(0)));
+        },
+        (error) => {
+          setVideoUploadError(
+            "Could not upload video (File must be less than 20MB)"
+          );
+          console.log(error);
+          setVideoUploadError(null);
+          setVideoFile(null);
+          setVideoFileUrl(null);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setVideoFileUrl(downloadURL);
 
-          setVideoUploading(false);
-        });
-      }
-    );
+            setVideoUploading(false);
+          });
+        }
+      );
+    }
   };
 
   useEffect(() => {

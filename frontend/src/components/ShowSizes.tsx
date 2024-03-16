@@ -1,15 +1,17 @@
 import { Button } from "flowbite-react";
 import React from "react";
 import { useSelector } from "react-redux";
+import { rootReducer } from "../redux/store";
 
+type RootState = ReturnType<typeof rootReducer>;
 const ShowSizes = () => {
-  const { files } = useSelector((state) => state.file);
+  const { files } = useSelector((state:RootState) => state.file);
 
   let totalSize = 0;
   let totalImageSize = 0;
   let totalVideoSize = 0;
 
-  if (files.length > 0) {
+  if (files && files.length > 0) {
     totalSize = files.reduce((totalSize, file) => totalSize + file.size, 0);
     totalImageSize = files
       .filter((file) => file.type.split("/")[0].toString() === "image")
@@ -20,7 +22,7 @@ const ShowSizes = () => {
       .reduce((totalSize, file) => totalSize + file.size, 0);
   }
 
-  function formatFileSize(bytes) {
+  function formatFileSize(bytes:number) {
     if (bytes < 1024) {
       return bytes + " bytes";
     } else if (bytes < 1024 * 1024) {
