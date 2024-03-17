@@ -75,4 +75,4 @@ To run this app locally, follow these steps:
 Once you've completed these steps, you're all set to run the app locally and start uploading and viewing photos and videos! To start the app, run the following command from the root directory:
 
 ```bash
-npm start
+npm run dev
