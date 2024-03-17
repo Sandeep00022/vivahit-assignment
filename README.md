@@ -2,6 +2,30 @@
 
 Welcome to our Photo and Video Upload App! This application allows users to seamlessly upload and view both photos and videos.
 
+## Tech Stack
+
+- **Frontend:**
+  - ReactJS: A JavaScript library for building user interfaces.
+  - Tailwind CSS: A utility-first CSS framework for rapidly building custom designs.
+  - Flowbite: A Tailwind CSS component library for faster development.
+  
+- **Backend:**
+  - Node.js: A JavaScript runtime built on Chrome's V8 JavaScript engine.
+  - Express.js: A web application framework for Node.js, designed for building web applications and APIs.
+  - MongoDB: A NoSQL document database, using JSON-like documents with schema.
+  
+- **Database:**
+  - Firebase: A platform developed by Google for creating mobile and web applications.
+
+
+## .env Configuration
+
+- `VITE_FIREBASE_API_KEY`: Firebase API key for authentication and data storage.
+- `MONGO_URI`: MongoDB connection URI for database access.
+- `JWTSECRET`: Secret key for JSON Web Token (JWT) authentication.
+- `PORT`: Port number on which the server will run.
+
+
 # Note:- The website is deployed on Render and will take atleast 1 min to start
 
 ## Video Explanation Drive link
